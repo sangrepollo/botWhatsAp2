@@ -205,6 +205,29 @@ async function validarRegistroIncorrecto(sock, groupJid, messageContent) {
     }
 }
 
+// 
+function eliminarDuplicadosEnArchivos(archivos) {
+    try {
+        archivos.forEach(archivo => {
+            const fileName = `${archivo}.js`;
+
+            const fileContent = fs.readFileSync(fileName, 'utf-8');
+            const lines = fileContent.trim().split('\n');
+
+            // Utilizar un conjunto para mantener un registro de las líneas únicas
+            const uniqueLines = new Set(lines);
+
+            fs.writeFileSync(fileName, Array.from(uniqueLines).join('\n'));
+
+            console.log('Registros duplicados eliminados en el archivo:', fileName);
+        });
+
+        console.log('Proceso completo: registros duplicados eliminados en todos los archivos.');
+    } catch (error) {
+        console.error('Error eliminando registros duplicados:', error);
+    }
+}
+
 //
 
 async function run() {
