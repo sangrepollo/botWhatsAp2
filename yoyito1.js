@@ -58,27 +58,41 @@ async function run() {
                         messagesQueue[groupJid][participant] = 0;
                         const randomMessage = mensajes[Math.floor(Math.random() * mensajes.length)];
 
-                        // Obtener la lista de archivos en la carpeta de imágenes
+                        // Obtener la lista de archivos en el directorio de imágenes
                         const imageFolder = './img/';
                         const imageFiles = fs.readdirSync(imageFolder);
 
-                        // Seleccionar una imagen aleatoria de la carpeta
-                        const randomImageFileName = imageFiles[Math.floor(Math.random() * imageFiles.length)];
-                        const imagePath = imageFolder + randomImageFileName;
-                        const imageBuffer = fs.readFileSync(imagePath);
+                        // Verificar si la lista de archivos no está vacía
+                        if (imageFiles.length > 0) {
+                            // Seleccionar una imagen aleatoria de la lista
+                            const randomImageFileName = imageFiles[Math.floor(Math.random() * imageFiles.length)];
+                            const imageFullPath = imageFolder + randomImageFileName;
 
-                        // Enviar la imagen aleatoria al grupo
-                        const imageOptions = {
-                            mimetype: 'image/jpeg',
-                            filename: randomImageFileName,
-                            caption: randomMessage
-                        };
+                            // Verificar si el path seleccionado es un archivo
+                            const stats = fs.statSync(imageFullPath);
 
-                        sentMessage = await sock.sendMessage(groupJid, { image: imageBuffer, ...imageOptions });
+                            if (stats.isFile()) {
+                                // Es un archivo, entonces puedes leerlo
+                                const imageBuffer = fs.readFileSync(imageFullPath);
 
-                        setTimeout(async () => {
-                            await sock.sendMessage(groupJid, { delete: sentMessage.key });
-                        }, 60000);
+                                // Enviar la imagen aleatoria al grupo
+                                const imageOptions = {
+                                    mimetype: 'image/jpeg',
+                                    filename: randomImageFileName,
+                                    caption: randomMessage
+                                };
+
+                                sentMessage = await sock.sendMessage(groupJid, { image: imageBuffer, ...imageOptions });
+
+                                setTimeout(async () => {
+                                    await sock.sendMessage(groupJid, { delete: sentMessage.key });
+                                }, 60000);
+                            } else {
+                                console.error('El path no apunta a un archivo válido.');
+                            }
+                        } else {
+                            console.error('No hay imágenes disponibles en el directorio.');
+                        }
                     }
                 }
             }
@@ -87,7 +101,7 @@ async function run() {
         sock.ev.on('group-participants.update', async ({ id, participants, action }) => {
             if (action === 'add' && participants.length > 0 && id.includes('@g.us')) {
                 const groupName = id;
-                const welcomeMessage =
+                const welcomeMessage = 
                     "🎉 ¡Bienvenido al Grupo de la Ruleta de la Suerte! 🎉\n\n" +
                     "Este juego se basa en lo siguiente:\n\n" +
                     "Juegas uno o varios números del 1 al 20. Al ocupar las 20 casillas, se le da vuelta a la ruleta. Enviaremos un video donde se muestra quién es el ganador para garantizar transparencia y confianza. Al ganador se le transfiere el dinero del premio.\n\n" +
