@@ -8,7 +8,7 @@ const mensajes = [
     "\n\n📹 ¡Revelamos al ganador en un emocionante vídeo para total transparencia y confianza! 🎥" +
     "\n\n💳 ¡Transfiere tu apuesta para jugar y captura la pantalla de tu transacción! 💳" +
     "\n\n🤝 ¡Respeto absoluto hacia todos los participantes, cualquier falta de respeto resultará en la expulsión del grupo! 🚫" +
-    "\n\n¡Únete a la diversión y desafía a la suerte hoy mismo con nuestra Ruleta de la Suerte! 🍀",
+    "\n\n¡Únete a la diversión y desafía a la suerte hoy mismo con nuestra Ruleta de la Suerte! https://chat.whatsapp.com/H8sigGB1iyL7wQii2Rverb 🍀",
 
     "🎉 ¡Anuncio emocionante!" +
     "\n\n🔥 ¡Apuesta en nuestras filas y gana en grande! 💰" +
@@ -19,7 +19,7 @@ const mensajes = [
     "\n\n📹 ¡Revelamos al ganador en un emocionante vídeo para total transparencia y confianza! 🎥" +
     "\n\n💳 ¡Transfiere tu apuesta para jugar y captura la pantalla de tu transacción! 💳" +
     "\n\n🤝 ¡Respeto absoluto hacia todos los participantes, cualquier falta de respeto resultará en la expulsión del grupo! 🚫" +
-    "\n\n¡Únete a la diversión y desafía a la suerte hoy mismo con nuestra Ruleta de la Suerte! 🍀"
+    "\n\n¡Únete a la diversión y desafía a la suerte hoy mismo con nuestra Ruleta de la Suerte! https://chat.whatsapp.com/H8sigGB1iyL7wQii2Rverb 🍀"
 ];
 
 module.exports = {
