@@ -84,21 +84,39 @@ async function run() {
             }
         });
 
-        sock.ev.on('group-participants.update', async ({ id, participants, action }) => {
-            if (action === 'add' && participants.length > 0 && id.includes('@g.us')) {
-                const groupName = id;
-                const welcomeMessage = "Hola, ¿qué tal?";
+       sock.ev.on('group-participants.update', async ({ id, participants, action }) => {
+    if (action === 'add' && participants.length > 0 && id.includes('@g.us')) {
+        const groupName = id;
+        const welcomeMessage = 
+            "🎉 ¡Bienvenido al Grupo de la Ruleta de la Suerte! 🎉\n\n" +
+            "Este juego se basa en lo siguiente:\n\n" +
+            "Juegas uno o varios números del 1 al 20. Al ocupar las 20 casillas, se le da vuelta a la ruleta. Enviaremos un video donde se muestra quién es el ganador para garantizar transparencia y confianza. Al ganador se le transfiere el dinero del premio.\n\n" +
+            "💸 Las jugadas son las siguientes:\n" +
+            "Inviertes $70 y ganas $900\n" +
+            "Inviertes $95 y ganas $1300\n" +
+            "Inviertes $160 y ganas $2100\n\n" +
+            "Somos serios en este negocio para que ustedes lo sean también. ¡No dejen de jugar con la suerte! 🍀\n\n" +
+            "📜 Las reglas del juego son las siguientes:\n\n" +
+            "- Deben transferir el dinero cuando jueguen el número, si no, no podrán jugar.\n" +
+            "- Hacer captura de pantalla de las transacciones de las jugadas.\n" +
+            "- Cero falta de respeto a los integrantes del grupo, serán expulsados en caso de hacerlo. 📝\n\n" +
+            "💳 Debe transferir a la tarjeta:\n" +
+            "9205 0699 9298 8187\n\n" +
+            "📱 Notificación al:\n" +
+            "*59541842*\n\n" +
+            "Informe en el grupo la realización de la transferencia.\n\n" +
+            "🎰💳🎰💳🎰💳🎰💳🎰💳🎰";
 
-                sentMessage = await sock.sendMessage(id, { text: welcomeMessage });
+        try {
+            const sentMessage = await sock.sendMessage(id, { text: welcomeMessage });
 
-                setTimeout(async () => {
-                    await sock.sendMessage(id, { delete: sentMessage.key });
-                }, 60000);
-            }
-        });
-    } catch (error) {
-        console.error('An error occurred:', error);
+            setTimeout(async () => {
+                await sock.sendMessage(id, { delete: sentMessage.key });
+            }, 60000);
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
     }
-}
+});
 
 run();
